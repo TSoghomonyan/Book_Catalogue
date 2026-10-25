@@ -1,11 +1,8 @@
 ﻿#pragma once
 
-//#include <iostream>
+#include "Fiction.h"
 
-#include "Book.h"
-#include <string>
 #include <list>
-#include <unordered_map>
 
 using std::string;
 
@@ -15,9 +12,9 @@ private:
 	//using std::list<Book>;
 	//using std::unordered_map<Book, int>;
 public:
-	void insertBook(const Book &book);
-	std::list<Book> find(const Book &target);
+	void insertBook(std::unique_ptr<Book> book);
+	std::list<const Book *> find(const Book &target);
 
 private:
-	std::list<Book> m_catalogue;
+	std::list<std::unique_ptr<Book>> m_catalogue;
 };

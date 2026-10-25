@@ -1,17 +1,17 @@
 ﻿#include "Book_Catalogue.h"
 
-void BookCatalogue::insertBook(const Book &book)
+void BookCatalogue::insertBook(std::unique_ptr<Book> book)
 {
-	m_catalogue.push_back(book);
+	m_catalogue.push_back(std::move(book));
 }
 
-std::list<Book> BookCatalogue::find(const Book &target)
+std::list<const Book *> BookCatalogue::find(const Book &target)
 {
-	std::list<Book> matches;
+	std::list<const Book *> matches;
 
-	for (auto it = m_catalogue.begin(); it != m_catalogue.end(); ++it) {
-		if (it->matches(target)) {
-			matches.push_back(*it);
+	for (const auto& book : m_catalogue) {
+		if (book->matches(&target)) {
+			matches.push_back(book.get());
 		}
 	}
 

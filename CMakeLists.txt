@@ -12,7 +12,7 @@ endif()
 project ("Book_Catalogue")
 
 # Добавьте источник в исполняемый файл этого проекта.
-add_executable (Book_Catalogue "Book_Catalogue.cpp" "Book_Catalogue.h" "Main.cpp" "Book.h"   "Book.cpp")
+add_executable (Book_Catalogue "Book_Catalogue.cpp" "Book_Catalogue.h" "Main.cpp" "Fiction.h"   "Fiction.cpp" "Book.h" "Book.cpp" "Attributes.h" "CookBook.h" "CookBook.cpp" "Attributes.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET Book_Catalogue PROPERTY CXX_STANDARD 20)

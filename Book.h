@@ -1,55 +1,40 @@
 #pragma once
 
-#include <cstdint>
-#include <ostream>
-#include <string>
+#include "Attributes.h"
 
-enum Genre : uint8_t {
+enum class book_type : uint8_t {
 	NONE = 0,
-	ADVENTURE,
-	CLASSICS,
-	DETECTIVE,
-	FANTASY,
-	HISTORIC,
-	HORROR,
-	ROMANCE,
-	SCIFI
+	FICTION,
+	COOKBOOK
 };
-
-std::ostream& operator<<(std::ostream& os, Genre genre);
 
 class Book {
 public:
-	Book(
-		const Genre genre,
-		const uint16_t year,
-		const std::string& title,
-		const std::string& name,
-		const std::string& surname)
-		: m_genre(genre)
-		, m_year(year)
-		, m_title(title)
-		, m_name(name)
-		, m_surname(surname)
-	{}
+	Book() = default;
+	Book(const Book&) = default;
+	Book(Book&&) = default;
 
-	inline const Genre genre() const { return m_genre; }
-	inline const uint16_t year() const { return m_year; }
-	inline const std::string& title() const { return m_title; }
-	inline const std::string& name() const { return m_name; }
-	inline const std::string& surname() const { return m_surname; }
+	Book& operator=(const Book&) = default;
+	Book& operator=(Book&&) = default;
 
-	bool matches(const Book& target) const;
-	friend std::ostream& operator<<(std::ostream& os, const Book& attributes);
+	virtual ~Book() = default;
 
-private:
+	virtual bool matches(const Book* target) const = 0;
+	virtual std::ostream& print(std::ostream& os) const = 0;
+
+	book_type type() const;
+	const Attributes& attributes() const;
+
+protected:
 	// case insesitive
 	bool checkStrings(const std::string& str1, const std::string& str2) const;
 
-private:
-	Genre m_genre = NONE;
-	uint16_t m_year = 0;
-	std::string m_title;
-	std::string m_name;		/// author's first name
-	std::string m_surname;	/// author's last name
+protected:
+	book_type m_type = book_type::NONE;
+	Attributes m_attributes = {};
 };
+
+inline std::ostream& operator<<(std::ostream& os, const Book& book)
+{
+	return book.print(os);
+}
