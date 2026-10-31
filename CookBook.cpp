@@ -5,52 +5,22 @@ Region CookBook::region() const
 	return m_attributes.m_region;
 }
 
-const uint16_t CookBook::year() const
+bool CookBook::matchesOwn(const SearchTarget& target) const
 {
-	return m_attributes.m_year;
-}
+	const Attributes& targetAttributes = target.attributes;
 
-const std::string& CookBook::title() const
-{
-	return m_attributes.m_title;
-}
-
-const std::string& CookBook::name() const
-{
-	return m_attributes.m_name;
-}
-
-const std::string& CookBook::surname() const
-{
-	return m_attributes.m_surname;
-}
-
-bool CookBook::matches(const Book* target) const
-{
-	if (m_type != target->type()) {
+	if (targetAttributes.m_genre != Genre::NONE ||
+		targetAttributes.m_year != 0) {
 		return false;
 	}
 
-	const Attributes& targetAttributes = target->attributes();
-
-	const Region targetRegion = targetAttributes.m_region;
-	const uint16_t targetYear = targetAttributes.m_year;
-	const std::string& targetTitle = targetAttributes.m_title;
-	const std::string& targetName = targetAttributes.m_name;
-	const std::string& targetSurname = targetAttributes.m_surname;
-
-	bool check = true;
-	check &= Region::NONE == targetRegion || m_attributes.m_region == targetRegion;
-	check &= 0 == targetYear || m_attributes.m_year == targetYear;
-	check &= targetTitle.empty() || checkStrings(m_attributes.m_title, targetTitle);
-	check &= targetName.empty() || checkStrings(m_attributes.m_name, targetName);
-	check &= targetSurname.empty() || checkStrings(m_attributes.m_surname, targetSurname);
-	return check;
+	return targetAttributes.m_region == Region::NONE || 
+		targetAttributes.m_region == m_attributes.m_region;
 }
 
 std::ostream& CookBook::print(std::ostream& os) const
 {
-	os << "{KIND: COOKBOOK, "
+	os << "{KIND: '" << m_type << "', "
 		<< "TITLE: '" << m_attributes.m_title << "', "
 		<< "SURNAME: '" << m_attributes.m_surname << "', "
 		<< "NAME: '" << m_attributes.m_name << "', "

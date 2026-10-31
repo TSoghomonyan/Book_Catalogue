@@ -31,10 +31,8 @@ public:
 
 	Genre genre() const;
 	const uint16_t year() const;
-	const std::string& title() const;
-	const std::string& name() const;
-	const std::string& surname() const;
 
-	bool matches(const Book* target) const override;
+private:
+	bool matchesOwn(const SearchTarget& target) const override;
 	std::ostream& print(std::ostream& os) const override;
 };

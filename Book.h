@@ -1,12 +1,7 @@
 #pragma once
 
 #include "Attributes.h"
-
-enum class book_type : uint8_t {
-	NONE = 0,
-	FICTION,
-	COOKBOOK
-};
+#include "SearchTarget.h"
 
 class Book {
 public:
@@ -19,18 +14,26 @@ public:
 
 	virtual ~Book() = default;
 
-	virtual bool matches(const Book* target) const = 0;
 	virtual std::ostream& print(std::ostream& os) const = 0;
+	
+	bool matches(const SearchTarget& target) const;
 
 	book_type type() const;
-	const Attributes& attributes() const;
+
+	const std::string& title() const;
+	const std::string& name() const;
+	const std::string& surname() const;
 
 protected:
+	const Attributes& attributes() const;
+	
 	// case insesitive
 	bool checkStrings(const std::string& str1, const std::string& str2) const;
 
+	virtual bool matchesOwn(const SearchTarget& target) const = 0;
+
 protected:
-	book_type m_type = book_type::NONE;
+	book_type m_type = book_type::ANY;
 	Attributes m_attributes = {};
 };
 
