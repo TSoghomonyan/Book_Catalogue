@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Fiction.h"
+#include "Book.h"
 
 #include <list>
 

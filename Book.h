@@ -3,9 +3,14 @@
 #include "Attributes.h"
 
 enum class book_type : uint8_t {
-	NONE = 0,
+	ANY = 0,
 	FICTION,
 	COOKBOOK
+};
+
+struct SearchTarget {
+	book_type type = book_type::ANY;
+	Attributes attributes = {};
 };
 
 class Book {
@@ -19,18 +24,22 @@ public:
 
 	virtual ~Book() = default;
 
-	virtual bool matches(const Book* target) const = 0;
 	virtual std::ostream& print(std::ostream& os) const = 0;
+	
+	bool matches(const SearchTarget& target) const;
 
 	book_type type() const;
-	const Attributes& attributes() const;
 
 protected:
+	const Attributes& attributes() const;
+	
 	// case insesitive
 	bool checkStrings(const std::string& str1, const std::string& str2) const;
 
+	virtual bool matchesOwn(const SearchTarget& target) const = 0;
+
 protected:
-	book_type m_type = book_type::NONE;
+	book_type m_type = book_type::ANY;
 	Attributes m_attributes = {};
 };
 

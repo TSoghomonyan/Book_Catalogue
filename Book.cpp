@@ -1,5 +1,22 @@
 #include "Book.h"
 
+bool Book::matches(const SearchTarget& target) const
+{
+	if (target.type != book_type::ANY && target.type != m_type) {
+		return false;
+	}
+
+	const Attributes& targetAttributes = target.attributes;
+	if (!targetAttributes.m_title.empty() && 
+		!checkStrings(m_attributes.m_title, targetAttributes.m_title)) { return false; }
+	if (!targetAttributes.m_name.empty() &&
+		!checkStrings(m_attributes.m_name, targetAttributes.m_name)) { return false; }
+	if (!targetAttributes.m_surname.empty() &&
+		!checkStrings(m_attributes.m_surname, targetAttributes.m_surname)) { return false; }
+
+	return matchesOwn(target);
+}
+
 book_type Book::type() const { return m_type; }
 
 const Attributes& Book::attributes() const { return m_attributes; }

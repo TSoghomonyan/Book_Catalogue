@@ -1,6 +1,8 @@
 #include <iostream>
 
 #include "Book_Catalogue.h"
+#include "Fiction.h"
+#include "CookBook.h"
 
 int main() {
 	BookCatalogue catalogue;
@@ -17,8 +19,13 @@ int main() {
 	catalogue.insertBook(std::make_unique<Fiction>(Genre::HORROR, 1818, "Frankenstein", "Mary", "Shelley"));
 	catalogue.insertBook(std::make_unique<Fiction>(Genre::SCIFI, 1968, "2001: A Space Odyssey", "Arthur", "Clarke"));
 	catalogue.insertBook(std::make_unique<Fiction>(Genre::SCIFI, 1985, "Ender's Game", "Orson", "Card"));
+	catalogue.insertBook(std::make_unique<CookBook>(Region::CHINA, "The Woks of Life", "Bill", "Leung"));
+	catalogue.insertBook(std::make_unique<CookBook>(Region::CHINA, "Chinese Cooking for Dummies", "Martin", "Yan"));
+	catalogue.insertBook(std::make_unique<CookBook>(Region::FRANCE, "Mastering the Art of French Cooking", "Julia", "Child"));
+	catalogue.insertBook(std::make_unique<CookBook>(Region::INDIA, "Made in India", "Meera", "Sodha"));
+	catalogue.insertBook(std::make_unique<CookBook>(Region::FRANCE, "The Lee Bros. Southern Cookbook", "Matt", "Lee"));
 
-	std::list<Fiction> findBooks = {
+	std::list<Fiction> findBooksTest1 = {
 		{Genre::NONE, 0, "The Great Gatsby", "", "" },
 		{Genre::DETECTIVE, 0,"", "", "" },
 		{Genre::NONE, 1960, "", "", "" },
@@ -33,6 +40,11 @@ int main() {
 		{Genre::NONE, 0,  "", "Stephen", "King"},
 		{Genre::NONE, 0,  "", "", "Shelley" },
 		{Genre::NONE, 0,  "Ender's Game", "", "Card" }
+	};
+
+	std::list<Book> findBooks = {
+		CookBook(Region::CHINA, "", "", ""),
+		Book(Region::CHINA, "", "", "")
 	};
 
 	for (auto it = findBooks.begin(); it != findBooks.end(); ++it) {
