@@ -1,8 +1,8 @@
 #include <iostream>
 
 #include "Book_Catalogue.h"
-#include "Fiction.h"
-#include "CookBook.h"
+#include "Books/Fiction.h"
+#include "Books/CookBook.h"
 
 void findBooks(const BookCatalogue& catalogue, std::list<SearchTarget> &targets) {
 	for (auto it = targets.begin(); it != targets.end(); ++it) {
