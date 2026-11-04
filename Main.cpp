@@ -52,45 +52,45 @@ int main() {
 	catalogue.insertBook(std::make_unique<HowTo>("writing", "On Writing", "Stephen", "King"));
 
 	std::list<SearchTarget> targets1 = {
-		{book_type::FICTION, { Genre::NONE, Region::NONE, 0, "", "The Great Gatsby", "", "" } },
-		{book_type::FICTION, { Genre::DETECTIVE, Region::NONE, 0, "", "", "", "" } },
-		{book_type::FICTION, { Genre::NONE, Region::NONE, 1960, "", "", "", ""}},
-		{book_type::FICTION, { Genre::HORROR, Region::NONE, 1818, "", "", "", "" } },
-		{book_type::FICTION, { Genre::SCIFI, Region::NONE, 0, "", "", "", "King" } },
-		{book_type::FICTION, { Genre::ROMANCE, Region::NONE, 0, "", "", "", "" } },
-		{book_type::FICTION, { Genre::HORROR, Region::NONE, 0, "", "", "", "King" } },
-		{book_type::FICTION, { Genre::NONE, Region::NONE, 0, "", "1984", "George", "Orwell"} },
-		{book_type::FICTION, { Genre::NONE, Region::NONE, 0, "", "life of PI", "", ""} },
-		{book_type::FICTION, { Genre::NONE, Region::NONE, 0, "", "Life of PI", "Yann", "Martel"} },
-		{book_type::FICTION, { Genre::NONE, Region::NONE, 0, "", "", "", ""} },
-		{book_type::FICTION, { Genre::NONE, Region::NONE, 0, "", "", "Stephen", "King"} },
-		{book_type::FICTION, { Genre::NONE, Region::NONE, 0, "", "", "", "Shelley" } },
-		{book_type::FICTION, { Genre::NONE, Region::NONE, 0, "", "Ender's Game", "", "Card" } }
+		{ book_type::FICTION, { .m_title = "The Great Gatsby" } },
+		{ book_type::FICTION, { .m_genre = Genre::DETECTIVE } },
+		{ book_type::FICTION, { .m_year = 1960 } },
+		{ book_type::FICTION, { .m_genre = Genre::HORROR, .m_year = 1818 } },
+		{ book_type::FICTION, { .m_genre = Genre::SCIFI, .m_surname = "King" } },
+		{ book_type::FICTION, { .m_genre = Genre::ROMANCE } },
+		{ book_type::FICTION, { .m_genre = Genre::HORROR, .m_surname = "King" } },
+		{ book_type::FICTION, { .m_title = "1984", .m_name = "George", .m_surname = "Orwell" } },
+		{ book_type::FICTION, { .m_title = "life of PI" } },
+		{ book_type::FICTION, { .m_title = "Life of PI", .m_name = "Yann", .m_surname = "Martel"} },
+		{ book_type::FICTION, {} },
+		{ book_type::FICTION, { .m_name = "Stephen", .m_surname = "King"} },
+		{ book_type::FICTION, { .m_surname = "Shelley" } },
+		{ book_type::FICTION, { .m_title = "Ender's Game", .m_surname = "Card" } }
 	};
 
 	std::list<SearchTarget> targets2 = {
-		{ book_type::COOKBOOK, {Genre::NONE, Region::CHINA} },
-		{ book_type::ANY, {Genre::NONE, Region::CHINA} },
-		{ book_type::ANY, {Genre::NONE, Region::NONE, 0, "", "", "", "Lee"}},
-		{ book_type::COOKBOOK, { Genre::NONE, Region::NONE, 0, "", "", "", "Lee" } },
-		{ book_type::FICTION, { Genre::NONE, Region::NONE, 0, "", "", "", "Lee" } },
-		{ book_type::ANY, { Genre::HORROR, Region::NONE, 0, "", "", "", "" } },
-		{ book_type::ANY, { Genre::NONE, Region::ITALY} },
+		{ book_type::COOKBOOK, { .m_region = Region::CHINA} },
+		{ book_type::ANY, { .m_region = Region::CHINA} },
+		{ book_type::ANY, { .m_surname = "Lee"}},
+		{ book_type::COOKBOOK, { .m_surname = "Lee" } },
+		{ book_type::FICTION, { .m_surname = "Lee" } },
+		{ book_type::ANY, { .m_genre = Genre::HORROR } },
+		{ book_type::ANY, { .m_region = Region::ITALY} },
 		{ book_type::COOKBOOK, {} },
 		{ book_type::ANY, {} }
 	};
 
 	std::list<SearchTarget> targets3 = {
-		{ book_type::HOWTO, { Genre::NONE, Region::NONE, 0, "programming", "", "", ""} },
-		{ book_type::ANY, { Genre::NONE, Region::NONE, 0, "PROGRAMMING", "", "", "" } },
-		{ book_type::ANY, {Genre::NONE, Region::NONE, 0, "", "", "", "King"} },
-		{ book_type::HOWTO, { Genre::NONE, Region::NONE, 0, "", "", "", "King" } },
-		{ book_type::ANY, { Genre::NONE, Region::NONE, 0, "", "", "Martin", ""} },
-		{ book_type::ANY, { Genre::NONE, Region::NONE, 0, "", "", "", "Martin" } },
-		{ book_type::ANY,{ Genre::HORROR, Region::NONE, 0, "", "", "", "" } },
-		{ book_type::ANY, { Genre::NONE, Region::CHINA, 0, "", "", "", "" } },
-		{ book_type::ANY,{ Genre::NONE, Region::NONE, 0, "cooking", "", "", "" } },
-		{ book_type::HOWTO, {Genre::NONE, Region::NONE, 0, "", "", "", ""} }
+		{ book_type::HOWTO, { .m_subject = "programming" } },
+		{ book_type::ANY, { .m_subject = "PROGRAMMING" } },
+		{ book_type::ANY, { .m_surname = "King"} },
+		{ book_type::HOWTO, { .m_surname = "King" } },
+		{ book_type::ANY, { .m_name = "Martin" } },
+		{ book_type::ANY, { .m_surname = "Martin" } },
+		{ book_type::ANY,{ .m_genre = Genre::HORROR } },
+		{ book_type::ANY, { .m_region = Region::CHINA } },
+		{ book_type::ANY, { .m_subject = "cooking" } },
+		{ book_type::HOWTO, {} }
 	};
 
 	std::cout << "<------  FIRST TEST CASE  ------>" << std::endl;
