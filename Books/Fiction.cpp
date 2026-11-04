@@ -13,7 +13,8 @@ const uint16_t Fiction::year() const
 bool Fiction::matchesOwn(const SearchTarget& target) const
 {
 	const Attributes& targetAttributes = target.attributes;
-	if (targetAttributes.m_region != Region::NONE) {
+	if (targetAttributes.m_region != Region::NONE ||
+		!targetAttributes.m_subject.empty()) {
 		return false;
 	}
 

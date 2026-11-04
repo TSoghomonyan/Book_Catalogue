@@ -10,7 +10,8 @@ bool CookBook::matchesOwn(const SearchTarget& target) const
 	const Attributes& targetAttributes = target.attributes;
 
 	if (targetAttributes.m_genre != Genre::NONE ||
-		targetAttributes.m_year != 0) {
+		targetAttributes.m_year != 0 || 
+		!targetAttributes.m_subject.empty()) {
 		return false;
 	}
 

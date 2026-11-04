@@ -7,7 +7,8 @@
 enum class book_type : uint8_t {
 	ANY = 0,
 	FICTION,
-	COOKBOOK
+	COOKBOOK,
+	HOWTO
 };
 
 std::ostream& operator<<(std::ostream& os, const book_type& type);

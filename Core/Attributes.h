@@ -34,6 +34,7 @@ struct Attributes {
 	Genre m_genre = Genre::NONE;
 	Region m_region = Region::NONE;
 	uint16_t m_year = 0;
+	std::string m_subject;
 	std::string m_title;
 	std::string m_name;		/// author's first name
 	std::string m_surname;	/// author's last name
