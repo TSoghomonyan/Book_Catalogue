@@ -1,9 +1,6 @@
 #include <iostream>
 
 #include "Book_Catalogue.h"
-#include "Books/Fiction.h"
-#include "Books/CookBook.h"
-#include "Books/HowTo.h"
 
 void fill(BookCatalogue &catalogue);
 void test(const BookCatalogue& catalogue);
@@ -18,7 +15,7 @@ int main()
 	return 0;
 }
 
-void findBooks(const BookCatalogue& catalogue, std::list<SearchTarget>& targets) 
+void findBooks(const BookCatalogue& catalogue, std::list<Attributes>& targets) 
 {
 	for (auto it = targets.begin(); it != targets.end(); ++it) {
 		auto matches = catalogue.find(*it);
@@ -41,79 +38,317 @@ void findBooks(const BookCatalogue& catalogue, std::list<SearchTarget>& targets)
 
 void fill(BookCatalogue& catalogue) 
 {
-	catalogue.insertBook(std::make_unique<Fiction>(Genre::CLASSICS, 1925, "The Great Gatsby", "F. Scott", "Fitzgerald"));
-	catalogue.insertBook(std::make_unique<Fiction>(Genre::ADVENTURE, 2001, "Life of Pi", "Yann", "Martel"));
-	catalogue.insertBook(std::make_unique<Fiction>(Genre::ADVENTURE, 1903, "The Call of the Wild", "Jack", "London"));
-	catalogue.insertBook(std::make_unique<Fiction>(Genre::CLASSICS, 1960, "To Kill a Mockingbird", "Harper", "Lee"));
-	catalogue.insertBook(std::make_unique<Fiction>(Genre::CLASSICS, 1868, "Little Women", "Louisa", "Alcott"));
-	catalogue.insertBook(std::make_unique<Fiction>(Genre::DETECTIVE, 1892, "The Adventures of Sherlock Holmes", "Conan", "Doyle"));
-	catalogue.insertBook(std::make_unique<Fiction>(Genre::DETECTIVE, 1939, "And Then There Were None", "Agatha", "Christie"));
-	catalogue.insertBook(std::make_unique<Fiction>(Genre::HORROR, 1974, "Carrie", "Stephen", "King"));
-	catalogue.insertBook(std::make_unique<Fiction>(Genre::HORROR, 1986, "It: A Novel", "Stephen", "King"));
-	catalogue.insertBook(std::make_unique<Fiction>(Genre::HORROR, 1818, "Frankenstein", "Mary", "Shelley"));
-	catalogue.insertBook(std::make_unique<Fiction>(Genre::SCIFI, 1968, "2001: A Space Odyssey", "Arthur", "Clarke"));
-	catalogue.insertBook(std::make_unique<Fiction>(Genre::SCIFI, 1985, "Ender's Game", "Orson", "Card"));
+	catalogue.insertBook(Book(Attributes{
+		{ Key::BOOK_TYPE, BookType::FICTION },
+		{ Key::GENRE, Genre::CLASSICS },
+		{ Key::YEAR, uint16_t(1925) },
+		{ Key::TITLE, std::string("The Great Gatsby") },
+		{ Key::AUTHOR_NAME, std::string("F. Scott") },
+		{ Key::AUTHOR_SURNAME, std::string("Fitzgerald") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::FICTION },
+		{ Key::GENRE, Genre::ADVENTURE }, 
+		{ Key::YEAR, uint16_t(2001) },
+		{ Key::TITLE, std::string("Life of Pi") },
+		{ Key::AUTHOR_NAME, std::string("Yann") },
+		{ Key::AUTHOR_SURNAME, std::string("Martel") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::FICTION },
+		{ Key::GENRE, Genre::ADVENTURE }, 
+		{ Key::YEAR, uint16_t(1903) },
+		{ Key::TITLE, std::string("The Call of the Wild") },
+		{ Key::AUTHOR_NAME, std::string("Jack") },
+		{ Key::AUTHOR_SURNAME, std::string("London") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::FICTION },
+		{ Key::GENRE, Genre::CLASSICS },
+		{ Key::YEAR, uint16_t(1960) },
+		{ Key::TITLE, std::string("To Kill a Mockingbird") },
+		{ Key::AUTHOR_NAME, std::string("Harper") },
+		{ Key::AUTHOR_SURNAME, std::string("Lee") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::FICTION },
+		{ Key::GENRE, Genre::CLASSICS },
+		{ Key::YEAR, uint16_t(1868) },
+		{ Key::TITLE, std::string("Little Women") },
+		{ Key::AUTHOR_NAME, std::string("Louisa") },
+		{ Key::AUTHOR_SURNAME, std::string("Alcott") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::FICTION },
+		{ Key::GENRE, Genre::DETECTIVE }, 
+		{ Key::YEAR, uint16_t(1892) },
+		{ Key::TITLE, std::string("The Adventures of Sherlock Holmes") },
+		{ Key::AUTHOR_NAME, std::string("Conan") },
+		{ Key::AUTHOR_SURNAME, std::string("Doyle") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::FICTION },
+		{ Key::GENRE, Genre::DETECTIVE }, 
+		{ Key::YEAR, uint16_t(1939) },
+		{ Key::TITLE, std::string("And Then There Were None") },
+		{ Key::AUTHOR_NAME, std::string("Agatha") },
+		{ Key::AUTHOR_SURNAME, std::string("Christie") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::FICTION },
+		{ Key::GENRE, Genre::HORROR }, 
+		{ Key::YEAR, uint16_t(1974) },
+		{ Key::TITLE, std::string("Carrie") },
+		{ Key::AUTHOR_NAME, std::string("Stephen") },
+		{ Key::AUTHOR_SURNAME, std::string("King") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::FICTION },
+		{ Key::GENRE, Genre::HORROR }, 
+		{ Key::YEAR, uint16_t(1986) },
+		{ Key::TITLE, std::string("It: A Novel") },
+		{ Key::AUTHOR_NAME, std::string("Stephen") },
+		{ Key::AUTHOR_SURNAME, std::string("King") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::FICTION },
+		{ Key::GENRE, Genre::HORROR }, 
+		{ Key::YEAR, uint16_t(1818) },
+		{ Key::TITLE, std::string("Frankenstein") },
+		{ Key::AUTHOR_NAME, std::string("Mary") },
+		{ Key::AUTHOR_SURNAME, std::string("Shelley") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::FICTION },
+		{ Key::GENRE, Genre::SCIFI }, 
+		{ Key::YEAR, uint16_t(1968) },
+		{ Key::TITLE, std::string("2001: A Space Odyssey") },
+		{ Key::AUTHOR_NAME, std::string("Arthur") },
+		{ Key::AUTHOR_SURNAME, std::string("Clarke") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::FICTION },
+		{ Key::GENRE, Genre::SCIFI }, 
+		{ Key::YEAR, uint16_t(1985) },
+		{ Key::TITLE, std::string("Ender's Game") },
+		{ Key::AUTHOR_NAME, std::string("Orson") },
+		{ Key::AUTHOR_SURNAME, std::string("Card") }
+	}));
 
-	catalogue.insertBook(std::make_unique<CookBook>(Region::CHINA, "The Woks of Life", "Bill", "Leung"));
-	catalogue.insertBook(std::make_unique<CookBook>(Region::CHINA, "Chinese Cooking for Dummies", "Martin", "Yan"));
-	catalogue.insertBook(std::make_unique<CookBook>(Region::FRANCE, "Mastering the Art of French Cooking", "Julia", "Child"));
-	catalogue.insertBook(std::make_unique<CookBook>(Region::INDIA, "Made in India", "Meera", "Sodha"));
-	catalogue.insertBook(std::make_unique<CookBook>(Region::US, "The Lee Bros. Southern Cookbook", "Matt", "Lee"));
+	catalogue.insertBook(Book({ 
+		{ Key::BOOK_TYPE, BookType::COOKBOOK },
+		{ Key::REGION, Region::CHINA }, 
+		{ Key::TITLE, std::string("The Woks of Life") },
+		{ Key::AUTHOR_NAME, std::string("Bill") },
+		{ Key::AUTHOR_SURNAME, std::string("Leung") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::COOKBOOK },
+		{ Key::REGION, Region::CHINA }, 
+		{ Key::TITLE, std::string("Chinese Cooking for Dummies") },
+		{ Key::AUTHOR_NAME, std::string("Martin") },
+		{ Key::AUTHOR_SURNAME, std::string("Yan") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::COOKBOOK },
+		{ Key::REGION, Region::FRANCE }, 
+		{ Key::TITLE, std::string("Mastering the Art of French Cooking") },
+		{ Key::AUTHOR_NAME, std::string("Julia") },
+		{ Key::AUTHOR_SURNAME, std::string("Child") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::COOKBOOK },
+		{ Key::REGION, Region::INDIA }, 
+		{ Key::TITLE, std::string("Made in India") },
+		{ Key::AUTHOR_NAME, std::string("Meera") },
+		{ Key::AUTHOR_SURNAME, std::string("Sodha") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::COOKBOOK },
+		{ Key::REGION, Region::US }, 
+		{ Key::TITLE, std::string("The Lee Bros. Southern Cookbook") },
+		{ Key::AUTHOR_NAME, std::string("Matt") },
+		{ Key::AUTHOR_SURNAME, std::string("Lee") }
+	}));
 
-	catalogue.insertBook(std::make_unique<HowTo>("programming", "Clean Code", "Robert", "Martin"));
-	catalogue.insertBook(std::make_unique<HowTo>("programming", "The Pragmatic Programmer", "Andrew", "Hunt"));
-	catalogue.insertBook(std::make_unique<HowTo>("gardening", "The Vegetable Gardener's Bible", "Edward", "Smith"));
-	catalogue.insertBook(std::make_unique<HowTo>("communication", "How to Win Friends and Influence People", "Dale", "Carnegie"));
-	catalogue.insertBook(std::make_unique<HowTo>("writing", "On Writing", "Stephen", "King"));
+	catalogue.insertBook(Book({ 
+		{ Key::BOOK_TYPE, BookType::HOWTO },
+		{ Key::SUBJECT, std::string("PROGRAMMING") },
+		{ Key::TITLE, std::string("Clean Code") },
+		{ Key::AUTHOR_NAME, std::string("Robert") },
+		{ Key::AUTHOR_SURNAME, std::string("Martin") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::HOWTO },
+		{ Key::SUBJECT, std::string("PROGRAMMING") },
+		{ Key::TITLE, std::string("The Pragmatic Programmer") },
+		{ Key::AUTHOR_NAME, std::string("Andrew") },
+		{ Key::AUTHOR_SURNAME, std::string("Hunt") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::HOWTO },
+		{ Key::SUBJECT, std::string("GARDENING") }, 
+		{ Key::TITLE, std::string("The Vegetable Gardener's Bible") },
+		{ Key::AUTHOR_NAME, std::string("Edward") },
+		{ Key::AUTHOR_SURNAME, std::string("Smith") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::HOWTO },
+		{ Key::SUBJECT, std::string("COMMUNICATION") },
+		{ Key::TITLE, std::string("How to Win Friends and Influence People") },
+		{ Key::AUTHOR_NAME, std::string("Dale") },
+		{ Key::AUTHOR_SURNAME, std::string("Carnegie") }
+	}));
+	catalogue.insertBook(Book({
+		{ Key::BOOK_TYPE, BookType::HOWTO },
+		{ Key::SUBJECT, std::string("WRITING") },
+		{ Key::TITLE, std::string("On Writing") },
+		{ Key::AUTHOR_NAME, std::string("Stephen") },
+		{ Key::AUTHOR_SURNAME, std::string("King") }
+	}));
 }
 
 void test(const BookCatalogue& catalogue)
 {
 	std::cout << "<------  FIRST TEST CASE  ------>" << std::endl;
-	std::list<SearchTarget> targets1 = {
-		{ book_type::FICTION,{ .m_title = "The Great Gatsby" } },
-		{ book_type::FICTION,{ .m_genre = Genre::DETECTIVE } },
-		{ book_type::FICTION,{ .m_year = 1960 } },
-		{ book_type::FICTION,{ .m_genre = Genre::HORROR, .m_year = 1818 } },
-		{ book_type::FICTION,{ .m_genre = Genre::SCIFI, .m_surname = "King" } },
-		{ book_type::FICTION,{ .m_genre = Genre::ROMANCE } },
-		{ book_type::FICTION,{ .m_genre = Genre::HORROR, .m_surname = "King" } },
-		{ book_type::FICTION,{ .m_title = "1984", .m_name = "George", .m_surname = "Orwell" } },
-		{ book_type::FICTION,{ .m_title = "life of PI" } },
-		{ book_type::FICTION,{ .m_title = "Life of PI", .m_name = "Yann", .m_surname = "Martel" } },
-		{ book_type::FICTION,{} },
-		{ book_type::FICTION,{ .m_name = "Stephen", .m_surname = "King" } },
-		{ book_type::FICTION,{ .m_surname = "Shelley" } },
-		{ book_type::FICTION,{ .m_title = "Ender's Game", .m_surname = "Card" } }
+	std::list<Attributes> targets1 = {
+		{
+			{ Key::BOOK_TYPE, BookType::FICTION },
+			{ Key::TITLE, std::string("The Great Gatsby") }
+		},
+		{
+			{ Key::BOOK_TYPE, BookType::FICTION },
+			{ Key::GENRE, Genre::DETECTIVE }
+		},
+		{
+			{ Key::BOOK_TYPE, BookType::FICTION },
+			{ Key::YEAR, uint16_t(1960) }
+		},
+		{
+			{ Key::BOOK_TYPE, BookType::FICTION },
+			{ Key::GENRE, Genre::HORROR },
+			{ Key::YEAR, uint16_t(1818) }
+		},
+		{
+			{ Key::BOOK_TYPE, BookType::FICTION },
+			{ Key::GENRE, Genre::SCIFI },
+			{ Key::AUTHOR_SURNAME, std::string("King") }
+		},
+		{
+			{ Key::BOOK_TYPE, BookType::FICTION },
+			{ Key::GENRE, Genre::ROMANCE }
+		},
+		{
+			{ Key::BOOK_TYPE, BookType::FICTION },
+			{ Key::GENRE, Genre::HORROR },
+			{ Key::AUTHOR_SURNAME, std::string("King") }
+		},
+		{
+			{ Key::BOOK_TYPE, BookType::FICTION },
+			{ Key::TITLE, std::string("1984") },
+			{ Key::AUTHOR_NAME, std::string("George") },
+			{ Key::AUTHOR_SURNAME, std::string("Orwell") }
+		},
+		{
+			{ Key::BOOK_TYPE, BookType::FICTION },
+			{ Key::TITLE, std::string("life of PI") }
+		},
+		{
+			{ Key::BOOK_TYPE, BookType::FICTION },
+			{ Key::TITLE, std::string("Life of PI") },
+			{ Key::AUTHOR_NAME, std::string("Yann") },
+			{ Key::AUTHOR_SURNAME, std::string("Martel") }
+		},
+		{
+			{ Key::BOOK_TYPE, BookType::FICTION } 
+		},
+		{
+			{ Key::BOOK_TYPE, BookType::FICTION },
+			{ Key::AUTHOR_NAME, std::string("Stephen") },
+			{ Key::AUTHOR_SURNAME, std::string("King") }
+		},
+		{
+			{ Key::BOOK_TYPE, BookType::FICTION },
+			{ Key::AUTHOR_SURNAME, std::string("Shelley") }
+		},
+		{
+			{ Key::BOOK_TYPE, BookType::FICTION },
+			{ Key::TITLE, std::string("Ender's Game") },
+			{ Key::AUTHOR_SURNAME, std::string("Card") }
+		}
 	};
 	findBooks(catalogue, targets1);
 
 	std::cout << "<------  SECOND TEST CASE  ------>" << std::endl;
-	std::list<SearchTarget> targets2 = {
-		{ book_type::COOKBOOK,{ .m_region = Region::CHINA } },
-		{ book_type::ANY,{ .m_region = Region::CHINA } },
-		{ book_type::ANY,{ .m_surname = "Lee" } },
-		{ book_type::COOKBOOK,{ .m_surname = "Lee" } },
-		{ book_type::FICTION,{ .m_surname = "Lee" } },
-		{ book_type::ANY,{ .m_genre = Genre::HORROR } },
-		{ book_type::ANY,{ .m_region = Region::ITALY } },
-		{ book_type::COOKBOOK,{} },
-		{ book_type::ANY,{} }
+	std::list<Attributes> targets2 = 
+	{
+		{ 
+			{ Key::BOOK_TYPE, BookType::COOKBOOK },
+			{ Key::REGION, Region::CHINA }
+		},
+		{ 
+			{ Key::REGION, Region::CHINA }
+		},
+		{
+			{ Key::AUTHOR_SURNAME, std::string("Lee") } 
+		},
+		{
+			{ Key::BOOK_TYPE, BookType::COOKBOOK }, 
+			{ Key::AUTHOR_SURNAME, std::string("Lee") }
+		},
+		{ 
+			{ Key::BOOK_TYPE, BookType::FICTION }, 
+			{ Key::AUTHOR_SURNAME, std::string("Lee") } 
+		},
+		{ 
+			{ Key::GENRE, Genre::HORROR } 
+		},
+		{ 
+			{ Key::REGION, Region::ITALY } 
+		},
+		{ 
+			{ Key::BOOK_TYPE, BookType::COOKBOOK }
+		},
+		{
+			// ANY
+		}
 	};
 	findBooks(catalogue, targets2);
 
 	std::cout << "<------  THIRD TEST CASE  ------>" << std::endl;
-	std::list<SearchTarget> targets3 = {
-		{ book_type::HOWTO,{ .m_subject = "programming" } },
-		{ book_type::ANY,{ .m_subject = "PROGRAMMING" } },
-		{ book_type::ANY,{ .m_surname = "King" } },
-		{ book_type::HOWTO,{ .m_surname = "King" } },
-		{ book_type::ANY,{ .m_name = "Martin" } },
-		{ book_type::ANY,{ .m_surname = "Martin" } },
-		{ book_type::ANY,{ .m_genre = Genre::HORROR } },
-		{ book_type::ANY,{ .m_region = Region::CHINA } },
-		{ book_type::ANY,{ .m_subject = "cooking" } },
-		{ book_type::HOWTO,{} }
+	std::list<Attributes> targets3 = {
+		{ 
+			{ Key::BOOK_TYPE, BookType::HOWTO },
+			{ Key::SUBJECT, std::string("programming") }
+		},
+		{ 
+			{ Key::SUBJECT, std::string("PROGRAMMING") }
+		},
+		{ 
+			{ Key::AUTHOR_SURNAME, std::string("King") }
+		},
+		{ 
+			{ Key::BOOK_TYPE, BookType::HOWTO },
+			{ Key::AUTHOR_SURNAME, std::string("King") }
+		},
+		{ 
+			{ Key::AUTHOR_NAME, std::string("Martin") }
+		},
+		{ 
+			{ Key::AUTHOR_SURNAME, std::string("Martin") }
+		},
+		{ 
+			{ Key::GENRE, Genre::HORROR }
+		},
+		{ 
+			{ Key::REGION, Region::CHINA }
+		},
+		{ 
+			{ Key::SUBJECT, std::string("cooking") }
+		},
+		{ 
+			{ Key::BOOK_TYPE, BookType::HOWTO }
+		}
 	};
 	findBooks(catalogue, targets3);
 }
