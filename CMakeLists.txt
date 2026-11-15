@@ -10,7 +10,6 @@ project ("Book_Catalogue")
 file(GLOB SOURCES CONFIGURE_DEPENDS
 	*.cpp *.h 
 	Core/*.cpp Core/*.h 
-	Books/*.cpp Books/*.h
 )
 
 add_executable (Book_Catalogue ${SOURCES})
