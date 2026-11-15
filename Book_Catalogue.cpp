@@ -5,7 +5,7 @@ void BookCatalogue::insertBook(std::unique_ptr<Book> book)
 	m_catalogue.push_back(std::move(book));
 }
 
-std::list<const Book *> BookCatalogue::find(const SearchTarget &target) const
+std::list<const Book *> BookCatalogue::find(const Attributes& target) const
 {
 	std::list<const Book *> matches;
 

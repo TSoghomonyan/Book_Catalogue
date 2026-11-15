@@ -4,6 +4,10 @@
 #include "Books/Fiction.h"
 #include "Books/CookBook.h"
 #include "Books/HowTo.h"
+#include "Core/Attributes.h"
+
+#include <list>
+#include <memory>
 
 void fill(BookCatalogue &catalogue);
 void test(const BookCatalogue& catalogue);
@@ -18,7 +22,7 @@ int main()
 	return 0;
 }
 
-void findBooks(const BookCatalogue& catalogue, std::list<SearchTarget>& targets) 
+void findBooks(const BookCatalogue& catalogue, const std::list<Attributes>& targets) 
 {
 	for (auto it = targets.begin(); it != targets.end(); ++it) {
 		auto matches = catalogue.find(*it);
@@ -70,50 +74,50 @@ void fill(BookCatalogue& catalogue)
 void test(const BookCatalogue& catalogue)
 {
 	std::cout << "<------  FIRST TEST CASE  ------>" << std::endl;
-	std::list<SearchTarget> targets1 = {
-		{ book_type::FICTION,{ .m_title = "The Great Gatsby" } },
-		{ book_type::FICTION,{ .m_genre = Genre::DETECTIVE } },
-		{ book_type::FICTION,{ .m_year = 1960 } },
-		{ book_type::FICTION,{ .m_genre = Genre::HORROR, .m_year = 1818 } },
-		{ book_type::FICTION,{ .m_genre = Genre::SCIFI, .m_surname = "King" } },
-		{ book_type::FICTION,{ .m_genre = Genre::ROMANCE } },
-		{ book_type::FICTION,{ .m_genre = Genre::HORROR, .m_surname = "King" } },
-		{ book_type::FICTION,{ .m_title = "1984", .m_name = "George", .m_surname = "Orwell" } },
-		{ book_type::FICTION,{ .m_title = "life of PI" } },
-		{ book_type::FICTION,{ .m_title = "Life of PI", .m_name = "Yann", .m_surname = "Martel" } },
-		{ book_type::FICTION,{} },
-		{ book_type::FICTION,{ .m_name = "Stephen", .m_surname = "King" } },
-		{ book_type::FICTION,{ .m_surname = "Shelley" } },
-		{ book_type::FICTION,{ .m_title = "Ender's Game", .m_surname = "Card" } }
+	std::list<Attributes> targets1 = {
+		{ .m_type = BookType::FICTION, .m_title = "The Great Gatsby" },
+		{ .m_type = BookType::FICTION, .m_genre = Genre::DETECTIVE },
+		{ .m_type = BookType::FICTION, .m_year = 1960 },
+		{ .m_type = BookType::FICTION, .m_genre = Genre::HORROR, .m_year = 1818 },
+		{ .m_type = BookType::FICTION, .m_genre = Genre::SCIFI, .m_surname = "King" },
+		{ .m_type = BookType::FICTION, .m_genre = Genre::ROMANCE },
+		{ .m_type = BookType::FICTION, .m_genre = Genre::HORROR, .m_surname = "King" },
+		{ .m_type = BookType::FICTION, .m_title = "1984", .m_name = "George", .m_surname = "Orwell" },
+		{ .m_type = BookType::FICTION, .m_title = "life of PI" },
+		{ .m_type = BookType::FICTION, .m_title = "Life of PI", .m_name = "Yann", .m_surname = "Martel" },
+		{ .m_type = BookType::FICTION },
+		{ .m_type = BookType::FICTION, .m_name = "Stephen", .m_surname = "King" },
+		{ .m_type = BookType::FICTION, .m_surname = "Shelley" },
+		{ .m_type = BookType::FICTION, .m_title = "Ender's Game", .m_surname = "Card" }
 	};
 	findBooks(catalogue, targets1);
 
 	std::cout << "<------  SECOND TEST CASE  ------>" << std::endl;
-	std::list<SearchTarget> targets2 = {
-		{ book_type::COOKBOOK,{ .m_region = Region::CHINA } },
-		{ book_type::ANY,{ .m_region = Region::CHINA } },
-		{ book_type::ANY,{ .m_surname = "Lee" } },
-		{ book_type::COOKBOOK,{ .m_surname = "Lee" } },
-		{ book_type::FICTION,{ .m_surname = "Lee" } },
-		{ book_type::ANY,{ .m_genre = Genre::HORROR } },
-		{ book_type::ANY,{ .m_region = Region::ITALY } },
-		{ book_type::COOKBOOK,{} },
-		{ book_type::ANY,{} }
+	std::list<Attributes> targets2 = {
+		{ .m_type = BookType::COOKBOOK, .m_region = Region::CHINA },
+		{ .m_type = BookType::ANY, .m_region = Region::CHINA },
+		{ .m_type = BookType::ANY, .m_surname = "Lee" },
+		{ .m_type = BookType::COOKBOOK, .m_surname = "Lee" },
+		{ .m_type = BookType::FICTION, .m_surname = "Lee" },
+		{ .m_type = BookType::ANY, .m_genre = Genre::HORROR },
+		{ .m_type = BookType::ANY, .m_region = Region::ITALY },
+		{ .m_type = BookType::COOKBOOK },
+		{ .m_type = BookType::ANY }
 	};
 	findBooks(catalogue, targets2);
 
 	std::cout << "<------  THIRD TEST CASE  ------>" << std::endl;
-	std::list<SearchTarget> targets3 = {
-		{ book_type::HOWTO,{ .m_subject = "programming" } },
-		{ book_type::ANY,{ .m_subject = "PROGRAMMING" } },
-		{ book_type::ANY,{ .m_surname = "King" } },
-		{ book_type::HOWTO,{ .m_surname = "King" } },
-		{ book_type::ANY,{ .m_name = "Martin" } },
-		{ book_type::ANY,{ .m_surname = "Martin" } },
-		{ book_type::ANY,{ .m_genre = Genre::HORROR } },
-		{ book_type::ANY,{ .m_region = Region::CHINA } },
-		{ book_type::ANY,{ .m_subject = "cooking" } },
-		{ book_type::HOWTO,{} }
+	std::list<Attributes> targets3 = {
+		{ .m_type = BookType::HOWTO, .m_subject = "programming" },
+		{ .m_type = BookType::ANY, .m_subject = "PROGRAMMING" },
+		{ .m_type = BookType::ANY, .m_surname = "King" },
+		{ .m_type = BookType::HOWTO, .m_surname = "King" },
+		{ .m_type = BookType::ANY, .m_name = "Martin" },
+		{ .m_type = BookType::ANY, .m_surname = "Martin" },
+		{ .m_type = BookType::ANY, .m_genre = Genre::HORROR },
+		{ .m_type = BookType::ANY, .m_region = Region::CHINA },
+		{ .m_type = BookType::ANY, .m_subject = "cooking" },
+		{ .m_type = BookType::HOWTO }
 	};
 	findBooks(catalogue, targets3);
 }

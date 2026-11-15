@@ -9,25 +9,16 @@ public:
 		const std::string& title,
 		const std::string& name,
 		const std::string& surname)
+		: Book(Attributes{
+			.m_type = BookType::COOKBOOK,
+			.m_region = region,
+			.m_title = title,
+			.m_name = name,
+			.m_surname = surname })
+	{}
+
+	Region region() const
 	{
-		m_type = book_type::COOKBOOK;
-		m_attributes.m_region = region;
-		m_attributes.m_title = title;
-		m_attributes.m_name = name;
-		m_attributes.m_surname = surname;
+		return m_attributes.m_region;
 	}
-
-	CookBook(const CookBook&) = default;
-	CookBook(CookBook&&) = default;
-
-	CookBook& operator=(const CookBook&) = default;
-	CookBook& operator=(CookBook&&) = default;
-
-	~CookBook() override = default;
-
-	Region region() const;
-
-private:
-	bool matchesOwn(const SearchTarget& target) const override;
-	std::ostream& print(std::ostream& os) const override;
 };
